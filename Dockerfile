@@ -7,5 +7,5 @@ RUN apk update \
   && apk add libffi-dev py-cffi \
   && apk add gettext \
   && apk add ffmpeg \
-  && apk add optipng jpegoptim gifsicle \
+  && apk add optipng pngcrush pngquant jpegoptim gifsicle \
   && rm /var/cache/apk/*
