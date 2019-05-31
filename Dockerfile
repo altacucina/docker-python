@@ -7,5 +7,6 @@ RUN apk update \
   && apk add openssl-dev libffi-dev py-cffi \
   && apk add gettext \
   && apk add ffmpeg \
+  && apk add curl curl-dev \
   && apk add optipng pngcrush pngquant jpegoptim gifsicle \
   && rm /var/cache/apk/*
