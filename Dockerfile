@@ -1,12 +1,16 @@
-FROM python:3.6.8-alpine
+FROM python:3.8-slim-buster
 
-RUN apk update \
-  && apk add --virtual build-deps make gcc python3-dev musl-dev \
-  && apk add postgresql-dev \
-  && apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev \
-  && apk add openssl-dev libffi-dev py-cffi \
-  && apk add gettext \
-  && apk add ffmpeg \
-  && apk add curl curl-dev \
-  && apk add optipng pngcrush pngquant jpegoptim gifsicle \
-  && rm /var/cache/apk/*
+RUN apt-get update \
+  # dependencies for building Python packages
+  && apt-get install -y build-essential  \
+  # psycopg2 dependencies
+  && apt-get install -y libpq-dev \
+  # pillow dependencies
+  && apt-get install -y libjpeg-dev zlib1g-dev \
+  # translations dependencies
+  && apt-get install -y gettext \
+  # other dependencies
+  && apt-get install -y ffmpeg optipng pngcrush pngquant jpegoptim gifsicle \
+  # cleaning up unused files
+  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+  && rm -rf /var/lib/apt/lists/*
