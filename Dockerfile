@@ -1,4 +1,8 @@
-FROM python:3.8-slim-buster
+FROM python:3.11.3-slim-bullseye as python
+
+# Build Stage
+
+FROM python as builder
 
 RUN apt-get update \
   # dependencies for building Python packages
@@ -9,6 +13,8 @@ RUN apt-get update \
   && apt-get install -y libjpeg-dev zlib1g-dev \
   # translations dependencies
   && apt-get install -y gettext \
+  # other dependencies
+  && apt-get install -y git pkg-config libcairo2-dev \
   # other dependencies
   && apt-get install -y ffmpeg optipng pngcrush pngquant jpegoptim gifsicle \
   # cleaning up unused files
